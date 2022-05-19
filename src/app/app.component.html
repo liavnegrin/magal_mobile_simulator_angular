@@ -1,0 +1,11 @@
+<app-alart *ngIf="isShowNav"></app-alart>
+<div *ngIf="!isShowNav"></div>
+
+<router-outlet></router-outlet>
+
+<nav *ngIf="isShowNav">
+    <div routerLinkActive="active-link"><a routerLink="events" ><div class="div-icon" ><img class="img-icon" src="../assets/icons/evenr.svg"><h6>Events</h6></div></a></div>
+    <div routerLinkActive="active-link"><a routerLink="video"><div class="div-icon"><img class="img-icon" src="../assets/icons/video.svg"><h6>Video</h6></div></a></div>
+    <div routerLinkActive="active-link"><a routerLink="map"><div class="div-icon"><img class="img-icon" src="../assets/icons/map.svg"><h6>Map</h6></div></a></div>
+    <div routerLinkActive="active-link"><a routerLink="new-event"><div class="div-icon"><img class="img-icon" src="../assets/icons/plus.svg"><h6>New Event</h6></div></a></div>
+</nav>

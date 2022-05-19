@@ -1,0 +1,19 @@
+<div class="container flex-row">
+    <img [hidden]="!camera.IsPTZ" class="img-camera-icon" src="../assets/icons/camera-ptz.svg" >
+    <img [hidden]="camera.IsPTZ" class="img-camera-icon" src="../assets/icons/camera-fix.svg" >
+    <div>
+        <div class="flex-row">
+            <h5>{{camera.Name}}</h5>
+            <select [hidden]="camera.Presets.length == 0" style="margin-left: 10pt;" #cricket>                
+                <option *ngFor="let preset of camera.Presets" [value]="preset">
+                    {{preset.PresetName}}
+                </option>
+            </select>
+        </div>
+        <h6 
+            [class.status-not-alarm]="camera.Status.AlarmType == 0"
+            [class.status-alarm]="camera.Status.AlarmType == 1"
+            [class.status-disabled]="camera.Status.StatusName === 'Disabled'"
+            >{{camera.Status.StatusName}}</h6>
+        </div>
+</div>

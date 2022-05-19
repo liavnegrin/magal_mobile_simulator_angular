@@ -1,0 +1,15 @@
+.header{
+    padding-left: 20px;
+    padding-top: 15px;
+    height: 54px;
+}
+.img-logo{
+    margin-left: 10px;
+    width: 42px;
+    height: 40px;
+}
+.separator{
+    margin-top: 13px;
+    color: #263653;
+    border-bottom: 4px solid; 
+}

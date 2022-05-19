@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">mobile-simulator</string>
+    <string name="title_activity_main">mobile-simulator</string>
+    <string name="package_name">magal.mobiledemo.angular</string>
+    <string name="custom_url_scheme">magal.mobiledemo.angular</string>
+</resources>

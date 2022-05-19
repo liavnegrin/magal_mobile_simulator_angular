@@ -1,0 +1,9 @@
+<div class="header">
+    <img class="img-icon"  src="../assets/icons/menu.svg">
+    <img class="img-logo"  src="../assets/icons/logo_l.svg">
+</div>
+<div class="separator"></div>
+
+<ul *ngFor="let event of events">
+    <app-event-row [header]="event.Header" (click)="expanded(event.Header)" ></app-event-row>
+</ul>

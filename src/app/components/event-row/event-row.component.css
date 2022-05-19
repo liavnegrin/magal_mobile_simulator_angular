@@ -1,0 +1,33 @@
+.container{   
+    color: rgb(27,42,70);
+    padding-bottom: 15px;
+}
+
+.img-event-icon{
+    margin-right: 10pt;
+    margin-left: 10pt;
+    display: block;
+    justify-content: center;
+    flex-wrap: wrap;
+    filter: invert(55%) sepia(9%) saturate(642%) hue-rotate(184deg) brightness(96%) contrast(93%);
+    width: 20pt;
+    height: 20pt;
+}
+
+h5{
+    margin-top: 10pt;
+    color: white;
+}
+
+.status-alarm{
+    color: red;
+}
+.status-not-alarm{
+    color: green;
+}
+.status-disabled{
+    color: rgb(128, 137, 158);
+}
+.expanded{
+    background-color: #263653;
+}

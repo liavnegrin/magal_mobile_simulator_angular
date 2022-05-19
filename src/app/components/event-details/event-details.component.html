@@ -1,0 +1,65 @@
+<div class="header">
+    <button (click)="backToPanel()">
+        <div class="text-button" >
+            <img src="../assets/icons/arrow_l.svg" >
+            <h4 class="text-in-button">Event Details</h4>
+        </div>
+    </button>
+    <div class="seperator"></div>
+    <button  [disabled]="!(canReject$ | async)" (click)="reject()">
+        <div class="text-button" >
+            <img class="img-icon"  src="../assets/icons/x.svg">
+            <h6 class="text-in-button" >Reject</h6>
+        </div>
+    </button>
+</div>
+<div class="separator-line"></div>
+<app-event-row [header]="(header$ | async)"></app-event-row>
+
+<div class="attachments-continer">
+    <h4 class="header-secondary-text">Attachments</h4>
+    <div *ngIf="(details$ | async) as details">
+        <ul *ngFor="let eventNote of details.EventNotes">
+            <div class="note flex-column">
+                <p>{{eventNote.Note}}</p>
+                <div class="seperator"></div>
+                <div class="flex-row">
+                    <div class="seperator"></div>
+                    <h6 class="timeStamp">{{eventNote.CreationTime | date:'medium'}}</h6>     
+                </div>
+            </div>
+        </ul>
+    </div>
+    <div class="form-group">
+    </div>
+</div>
+<nav>   
+    <button [disabled]="!(canAccept$ | async)" (click)="accept()">       
+        <div class="treatment-method__icon__outer_circle">
+            <img class="treatment-methods_icon" src="../assets/icons/accept.svg">
+        </div>   
+        <h6>Accept</h6>
+    </button>
+    <button [disabled]="!(canArrive$ | async)" (click)="arrived()">
+        <div class="treatment-method__icon__outer_circle">
+            <img class="treatment-methods_icon" src="../assets/icons/goto.svg">
+        </div>
+        <h6>Arrived</h6>
+    </button> 
+    <button [disabled]="!(canDone$ | async)">
+    <label class="custom-file-upload">
+        <input type="file" (change)="handleFileInput($event)" [disabled]="!(canDone$ | async)" >
+        <div class="treatment-method__icon__outer_circle">
+            <img class="img-icon" src="../assets/icons/clip.svg">
+        </div>
+        <h6>Attatch</h6>
+    </label>
+    </button>
+
+    <button [disabled]="!(canDone$ | async)" (click)="done()">
+        <div class="treatment-method__icon__outer_circle">
+            <img class="img-icon" src="../assets/icons/v.svg">
+        </div>
+        <h6>Done</h6>
+    </button>
+</nav>

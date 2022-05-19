@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="60.499" height="53">
+    <defs>
+        <filter id="a" x="2.776" y="0" width="57.724" height="53" filterUnits="userSpaceOnUse">
+            <feOffset dy="3"/>
+            <feGaussianBlur stdDeviation="3" result="blur"/>
+            <feFlood flood-opacity=".302"/>
+            <feComposite operator="in" in2="blur"/>
+            <feComposite in="SourceGraphic"/>
+        </filter>
+        <filter id="b" x="2.776" y="0" width="57.724" height="53" filterUnits="userSpaceOnUse">
+            <feOffset dy="3"/>
+            <feGaussianBlur stdDeviation="3" result="blur-2"/>
+            <feFlood flood-opacity=".302"/>
+            <feComposite operator="in" in2="blur-2"/>
+            <feComposite in="SourceGraphic"/>
+        </filter>
+        <filter id="c" x="0" y="6.958" width="57" height="31" filterUnits="userSpaceOnUse">
+            <feOffset/>
+            <feGaussianBlur stdDeviation="2.5" result="blur-3"/>
+            <feFlood flood-opacity=".788"/>
+            <feComposite operator="in" in2="blur-3"/>
+            <feComposite in="SourceGraphic"/>
+        </filter>
+    </defs>
+    <g data-name="Group 155">
+        <g style="filter:url(#a)" transform="translate(-.004)">
+            <path data-name="Path 144" d="M10643.294 1351.286h-15.941l-23.782 35h16.335z" transform="translate(-10591.79 -1345.29)" style="fill:#b71718"/>
+        </g>
+        <g style="filter:url(#b)" transform="translate(-.004)">
+            <path data-name="Path 145" d="M10643.294 1386.286h-15.941l-23.782-35h16.335z" transform="translate(-10591.79 -1345.29)" style="fill:#f31315"/>
+        </g>
+    </g>
+    <g style="filter:url(#c)">
+        <text data-name="Fortis" transform="translate(28.5 27.46)" style="fill:#d6e9f6;font-size:12px;font-family:SegoeUI-Bold,Segoe UI;font-weight:700;letter-spacing:.01em"><tspan x="-20.547" y="0">FORTIS</tspan></text>
+    </g>
+</svg>

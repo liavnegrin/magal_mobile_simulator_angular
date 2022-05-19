@@ -1,0 +1,32 @@
+<div class="expanded" *ngIf="header !== null && header.IsExpanded" (click)="openDetails()">
+    <div class="container flex-row">
+        <img class="img-event-icon" src="../assets/icons/camera-ptz.svg" >
+        <div *ngIf="header !== null" class="flex-column">
+            <h5>{{header.Name}}</h5>               
+            <h5>{{header.CreatingSensorName}}</h5> 
+            <div class="flex-row">
+                <h6 
+                    [class.status-not-alarm]="header.Status.AlarmType == 0"
+                    [class.status-alarm]="header.Status.AlarmType == 1"
+                    [class.status-disabled]="header.Status.StatusName === 'Disabled'"
+                    >{{header.Status.StatusName}}</h6>
+                <h6 class="timeStamp" >{{header.Status.TimeStamp | date:'medium'}}</h6>               
+            </div>              
+        </div>
+    </div>
+</div>
+<div *ngIf="header !== null && !header.IsExpanded" class="container flex-row">
+    <img class="img-event-icon" src="../assets/icons/camera-ptz.svg" >
+    <div *ngIf="header !== null" class="flex-column">
+        <h5>{{header.Name}}</h5>               
+        <h5>{{header.CreatingSensorName}}</h5> 
+        <div class="flex-row">
+            <h6 
+                [class.status-not-alarm]="header.Status.AlarmType == 0"
+                [class.status-alarm]="header.Status.AlarmType == 1"
+                [class.status-disabled]="header.Status.StatusName === 'Disabled'"
+                >{{header.Status.StatusName}}</h6>
+            <h6 class="timeStamp" >{{header.Status.TimeStamp | date:'medium'}}</h6>               
+        </div>              
+    </div>
+</div>

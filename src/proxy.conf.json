@@ -1,0 +1,12 @@
+{
+    "/FortisServer/*":{
+        "target":"http://localhost:9009",
+        "secure":false,
+        "logLevel": "debug"
+    },
+    "/event-stream*":{
+        "target":"http://localhost:2000",
+        "secure":false,
+        "logLevel": "debug"
+    }
+}

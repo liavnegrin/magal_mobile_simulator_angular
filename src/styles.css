@@ -1,0 +1,104 @@
+/* You can add global styles to this file, and also import other style files */
+
+html, body{
+    width: 100%;
+    height: 100%;
+    background-color: rgb(20, 33, 58);
+    color: white;
+}
+
+body{
+    display: grid;
+    font-family: 'Segoe UI Regular';
+}
+
+*{
+    box-sizing: border-box;
+    padding: 0px;
+    margin: 0px;
+}
+
+.img-icon{
+    width: 20pt;
+    height: 20pt;
+    margin: auto;
+}
+.text{
+    height: 50pt;
+    margin: auto;
+    display:table;
+}
+.header-primary-text{
+    margin-top: 8px;
+    margin-bottom: 8px;
+    color: white;
+    font-size: 18px;
+    height: 25px;
+}
+.header-secondary-text{
+    margin-top: 8px;
+    margin-bottom: 8px;
+    color:#7f899e;
+    font-size: 18px;
+    height: 24px;
+}
+.time-signature-text{
+    margin-top: 7px;
+    margin-bottom: 7px;
+    color:#8c96aa;
+    font-size: 14px;
+    height: 19;
+}
+.timeStamp{
+    position: absolute;
+    color: #7f899e;
+    text-align: right;
+    right: 25px;
+}
+.flex-row{
+    display: flex;
+    align-items: center;
+}
+.flex-column{
+    display: flex;
+    flex-direction: column;
+}
+
+nav{
+    display: flex;
+    flex-direction: row;
+    align-items: stretch;
+    color: rgb(27,42,70);
+    border-top: 2px solid;
+    background-color: rgb(0, 14, 42);
+}
+nav div{
+    flex: 1;
+    text-align: center;
+    padding: 10pt 0pt 10pt 0pt;
+}
+
+nav a{
+    color: white;
+    text-decoration: none;
+}
+nav a:hover{
+    color: rgb(66, 165, 245);
+}
+.active-link{
+    margin: -2px 0px 0px 0px;
+    border-top: 2px solid;
+    color: rgb(66, 165, 245);
+}
+.active-link a{
+    color: rgb(66, 165, 245);
+}
+
+.div-icon{
+    display: flex;
+    flex-direction: column;
+    color: white;
+}
+.active-link .div-icon{
+    color: rgb(66, 165, 245);
+}

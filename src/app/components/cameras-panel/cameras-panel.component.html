@@ -1,0 +1,16 @@
+<ul [hidden]="isShowByCategory" *ngFor="let camera of cameras | filter: filterTerm">
+    <app-camera-row [camera]="camera"></app-camera-row>
+</ul>
+
+<ul [hidden]="!isShowByCategory">
+    <li *ngFor="let category of categories | filter: filterTerm">        
+        <div class="category-row">
+            <img [hidden]="!category.IsExpanded" (click)="changeCategoryExpanded(category)" class="img-camera-icon" src="../assets/icons/arrow_r.svg" >
+            <img [hidden]="category.IsExpanded" (click)="changeCategoryExpanded(category)" class="img-camera-icon" src="../assets/icons/arrow_l.svg" >
+            <h5>{{category.Name}}</h5>
+        </div>
+        <ul [hidden]="!category.IsExpanded" *ngFor="let camera of cameras | filter: filterTerm">
+            <app-camera-row [camera]="camera"></app-camera-row>
+        </ul>            
+    </li>
+</ul>

@@ -1,0 +1,27 @@
+<div class="header" *ngIf="!isSearchMode">
+    <h4>Video View</h4>
+    <div class="separator"></div>
+    <img class="right img-icon" (click)="changSearchMode()" src="../assets/icons/search.svg">
+</div>
+<div class="header input-icons" *ngIf="isSearchMode">
+    <input
+    type="text"
+    class="form-control input-field"
+    placeholder="Search..."
+    [(ngModel)]="filterTerm"      
+    />
+    <img class="img-inside-icon" (click)="changSearchMode()" src="../assets/icons/x.svg">
+</div>
+<div class="header">
+    <img *ngIf="isVideoPanelMode" (click)="changeVideoPanelMode()" class="img-icon-toggle-view" src="../assets/icons/list.svg">
+    <img *ngIf="!isVideoPanelMode" (click)="changeVideoPanelMode()" class="img-icon-toggle-view" src="../assets/icons/thumbnail.svg">        
+    <div class="separator"></div>
+    <div class="header" (click)="chageShowListMode()">
+        <h6 *ngIf="!this.isShowByCategory" class="sort-by">By Alphabet</h6>
+        <h6 *ngIf="this.isShowByCategory" class="sort-by">By Category</h6>
+        <img class="img-icon"  src="../assets/icons/sort.svg">
+    </div>
+</div>
+
+<app-video-panel class="video-panel" *ngIf="isVideoPanelMode"></app-video-panel>
+<app-cameras-panel [isShowByCategory]="isShowByCategory" [filterTerm]="filterTerm" class="cameras-panel" *ngIf="!isVideoPanelMode"></app-cameras-panel>

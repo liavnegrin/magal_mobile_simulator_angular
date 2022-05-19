@@ -1,0 +1,40 @@
+:host{
+    background-image: url('/assets/images/start_background.png');  
+    display: grid;
+    grid-template-rows: auto auto auto 1fr auto;
+    padding: 16pt;  
+    text-align: center;
+
+}
+.right{
+    margin-left: auto;
+    margin-right: 0pt;
+}
+.center{
+    margin: auto;
+    text-align: center;
+
+}
+.touchID-container{
+    text-align: center;
+    margin-top: 140px;
+}
+.form-container{
+    margin-top: 90px;
+    text-align: left;
+
+}
+.welecome_txt{
+    margin-top: 50px;
+    margin-bottom: 22PX;
+}
+h4{
+    margin-top: 140px;
+    color: #42a5f5;
+    border-bottom: 2pt;
+    border-color: #42a5f5;
+}
+h5{
+    margin-top: 20px;
+    margin-bottom: 10px;
+}

@@ -1,0 +1,16 @@
+:host{
+    display: grid;
+    grid-template-rows: auto auto 1fr ;
+    background-color: #263653; 
+}
+.header{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    background-color: #14213a; 
+    padding: 16px;
+    padding-bottom: 8px;
+}
+.seperator{
+    flex: 1;
+}

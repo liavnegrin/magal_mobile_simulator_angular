@@ -1,0 +1,14 @@
+li{
+    list-style: none;
+}
+.category-row{
+    display: flex;
+    flex-direction: row;
+}
+  
+.camera-content-group {
+    padding: 0 18px;
+    display: none;
+    overflow: hidden;
+    background-color: #f1f1f1;
+  }

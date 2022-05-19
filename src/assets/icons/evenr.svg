@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24">
+    <defs>
+        <style>
+            .cls-1{fill:#fff}
+        </style>
+    </defs>
+    <g id="evenr" transform="translate(-11 -15)">
+        <g id="Group_3040" data-name="Group 3040" transform="translate(-283.5 -369.5)">
+            <path id="Path_5841" data-name="Path 5841" class="cls-1" d="M314.5 386.5h-16a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-16a2 2 0 0 0-2-2zm1 18a1 1 0 0 1-1 1h-16a1 1 0 0 1-1-1v-16a1 1 0 0 1 1-1h16a1 1 0 0 1 1 1z"/>
+            <rect id="Rectangle_1495" data-name="Rectangle 1495" class="cls-1" width="5.556" height="5.556" rx="1" transform="translate(299.833 389.833)"/>
+            <rect id="Rectangle_1496" data-name="Rectangle 1496" class="cls-1" width="5.556" height="5.556" rx="1" transform="translate(299.833 397.611)"/>
+            <rect id="Rectangle_1497" data-name="Rectangle 1497" class="cls-1" width="5.556" height="5.556" rx="1" transform="translate(307.611 389.833)"/>
+            <rect id="Rectangle_1498" data-name="Rectangle 1498" class="cls-1" width="5.556" height="5.556" rx="1" transform="translate(307.611 397.611)"/>
+        </g>
+        <path id="bg" transform="translate(11 15)" style="fill:transparent" d="M0 0h24v24H0z"/>
+    </g>
+</svg>

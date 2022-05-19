@@ -1,0 +1,37 @@
+.container{   
+    color: rgb(27,42,70);
+    border-bottom: 2px solid;    
+}
+.flex-row{
+    display: flex;
+    align-items: center;
+}
+.flex-column{
+    display: flex;
+    flex-direction: column;
+}
+.img-camera-icon{
+    margin-right: 15pt;
+    margin-left: 0;
+    display: block;
+    justify-content: center;
+    flex-wrap: wrap;
+    filter: invert(55%) sepia(9%) saturate(642%) hue-rotate(184deg) brightness(96%) contrast(93%);
+    width: 20pt;
+    height: 20pt;
+}
+
+h5{
+    margin-top: 10pt;
+    color: white;
+}
+
+.status-alarm{
+    color: red;
+}
+.status-not-alarm{
+    color: green;
+}
+.status-disabled{
+    color: rgb(128, 137, 158);
+}
