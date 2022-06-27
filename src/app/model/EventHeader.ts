@@ -18,6 +18,7 @@ export interface EventHeader{
     IsExpanded: boolean;
 }
 export interface EventStatus extends StatusItem{
+    type:"Magal.S3.Common.Objects.Data.EventStatusDTO";    
     EventId:string;
 }
 export interface RelatedCameraLinkDTO{

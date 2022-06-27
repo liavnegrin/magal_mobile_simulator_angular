@@ -3,7 +3,20 @@
     <img class="img-logo"  src="../assets/icons/logo_l.svg">
 </div>
 <div class="separator"></div>
+<div class="header-row" *ngIf="!isSearchMode">
+    <div class="separator"></div>
+    <img class="right img-icon" (click)="changSearchMode()" src="../assets/icons/search.svg">
+</div>
+<div class="header-row input-icons" *ngIf="isSearchMode">
+    <input
+    type="text"
+    class="form-control input-field"
+    placeholder="Search..."
+    [(ngModel)]="filterTerm"      
+    />
+    <img class="img-inside-icon" (click)="changSearchMode()" src="../assets/icons/x.svg">
+</div>
 
-<ul *ngFor="let event of events">
+<ul *ngFor="let event of events | filter: filterTerm">
     <app-event-row [header]="event.Header" (click)="expanded(event.Header)" ></app-event-row>
 </ul>

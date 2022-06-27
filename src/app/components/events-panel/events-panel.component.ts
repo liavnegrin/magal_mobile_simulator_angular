@@ -11,6 +11,9 @@ import { EventsService } from 'src/app/services/events.service';
 export class EventsPanelComponent implements OnInit {
 
   events:EventItem[];
+  filterTerm!: string;
+  isSearchMode:boolean;
+
   constructor(private eventsService: EventsService) { }
 
   ngOnInit(): void {
@@ -25,5 +28,10 @@ export class EventsPanelComponent implements OnInit {
     this.events
     .filter(x => x.Header !== header && x.Header.IsExpanded)
     .find(e => e.Header.IsExpanded = false)
-}
+  }
+
+  changSearchMode(){
+    this.isSearchMode = !this.isSearchMode; 
+    this.filterTerm = '';
+  }
 }

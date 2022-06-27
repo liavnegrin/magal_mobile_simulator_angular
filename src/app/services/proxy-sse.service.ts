@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
 import { ServerEventConnect, ServerEventJoin, ServerEventLeave, ServerEventMessage, ServerEventsClient, ServerEventUpdate } from '@servicestack/client';
+import { SseMessage } from '../model/SseMessage';
+import { EventStatus } from '../model/EventHeader';
 import { LoginService } from './login.service';
 
 @Injectable({
@@ -11,7 +13,11 @@ export class ProxySseService {
       this.OnInit();
 }
 
+callbacks: {[type:string ]: sseMessageCallback} = {};
+
 OnInit(): void {
+    //this.callbacks.Add([key]= "g", ()=>  console.log("ProxySseService > ServerEventsClient start..."))
+
     this.loginServive.SSEChannels$.subscribe(channels=>{
         if(channels != null){
             console.log("ProxySseService > ServerEventsClient start...");
@@ -31,6 +37,14 @@ OnInit(): void {
                     },        
                     onMessage: (msg:ServerEventMessage) => {
                       console.log(msg);
+                      
+                      var sseMessage = msg.body as SseMessage;
+                      if(this.callbacks[sseMessage.EntityType] != undefined)
+                        this.callbacks[sseMessage.EntityType](sseMessage);
+                      //console.log(sseMessage);
+                     
+                    
+                    
                     } // Invoked for each other message
                   
                 },
@@ -68,5 +82,16 @@ OnInit(): void {
 //client.serviceClient.headers.append('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
 //client.start();
 }
+
+
+
+Subscribe(key: string, cllaback: sseMessageCallback){
+    console.log("Subscribe: "+ key);
+    this.callbacks[key] = cllaback;
+}
  
 }
+
+interface sseMessageCallback {
+    (cllaback: SseMessage) : Promise<void>;
+  }

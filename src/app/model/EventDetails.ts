@@ -1,5 +1,3 @@
-import { Type } from "@angular/compiler/src/core";
-
 export interface EventDetails{
     Id:string;
     EventNotes:EventNote[];
@@ -30,9 +28,9 @@ export enum ActionOption{
     Done = 3
 }
 export interface Command{
-    CommandEnumType:Type;
+    CommandEnumType:string;
     CommandEnumIndex:number;
-    EntityType:Type;
+    EntityType:string;
     EntityId:string;
     Order:number;
     Command:string;
@@ -43,13 +41,13 @@ export interface CanExecuteCommand{
     CanExecute:boolean; 
     Reason:string 
     ReasonEnumIndex :number;
-    ReasonEnumType:Type; 
+    ReasonEnumType:string; 
 }
 
 export interface Link{
     Href:string;
-    ModelType:Type;
+    ModelType:string;
     Method:number;
     Rel:number;
-    PostType:Type;
+    PostType:string;
 }

@@ -8,9 +8,9 @@ import { Component, OnInit } from '@angular/core';
 export class VideoRegionComponent implements OnInit {
  
   filterTerm!: string;
+  isSearchMode:boolean;
   isShowByCategory!:boolean;
   isVideoPanelMode:boolean;
-  isSearchMode:boolean;
 
   constructor() { }
 
