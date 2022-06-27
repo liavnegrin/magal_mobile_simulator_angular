@@ -38,9 +38,9 @@ OnInit(): void {
                     onMessage: (msg:ServerEventMessage) => {
                       console.log(msg);
                       
-                      var sseMessage = msg.body as SseMessage;
-                      if(this.callbacks[sseMessage.EntityType] != undefined)
-                        this.callbacks[sseMessage.EntityType](sseMessage);
+                      //var sseMessage = msg.body as SseMessage;
+                      //if(this.callbacks[sseMessage.EntityType] != undefined)
+                        //this.callbacks[sseMessage.EntityType](sseMessage);
                       //console.log(sseMessage);
                      
                     
