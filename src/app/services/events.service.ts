@@ -1,10 +1,11 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, filter, map, Observable, switchMap } from 'rxjs';
-import { EventAction, EventDetails } from '../model/EventDetails';
+import { BehaviorSubject, filter, ignoreElements, map, Observable, switchMap } from 'rxjs';
+import { EventAction, EventDetails, EventNote } from '../model/EventDetails';
 import { EventHeader, EventStatus } from '../model/EventHeader';
 import { EventItem } from '../model/EventItem';
-import { SseMessage } from '../model/SseMessage';
+import { FileAttachment } from '../model/FileAttachment';
+import { SseMessage, SseMessageOperation } from '../model/SseMessage';
 import { LoginService } from './login.service';
 import { ProxyAPIService } from './proxy-api.service';
 import { ProxySseService } from './proxy-sse.service';
@@ -13,8 +14,8 @@ import { ProxySseService } from './proxy-sse.service';
   providedIn: 'root'
 })
 export class EventsService {
-
-  events$ = new BehaviorSubject<EventItem[]>([]);
+  events : EventItem[]=[];
+  events$ = new BehaviorSubject<EventItem[]>(this.events);
 
   constructor(
     private login : LoginService,
@@ -32,7 +33,55 @@ export class EventsService {
   })   
   
   this.sse.Subscribe("Magal.S3.Common.Objects.Data.EventStatusDTO", this.sseCallback );
+  this.sse.Subscribe("Magal.S3.Common.Objects.Data.EventHeaderDTO", this.EventHeaderDTOSseHandler );
+  this.sse.Subscribe("Magal.S3.Common.Objects.Data.EventNoteDTO", this.EventNoteDTOSseHandler );
 }
+ async EventNoteDTOSseHandler(msg: SseMessage): Promise<void> {
+    console.log("EventNoteDTOSseHandler: " + msg);
+    let notes = msg.Entities as EventNote[];
+    notes.forEach(async note => {
+      console.log("note.EventId: " + note.EventId);
+      console.log("note.Note: " + note.Note);
+
+      this.getEvent(note.EventId).forEach(event => this.events$.value.find(x => x.Header.Id == note.EventId)!.Details?.EventNotes.push(note))
+      
+        //this.events$.value.find(x => x.Header.Id == note.EventId)!.Details?.EventNotes.push(note);
+      
+      this.events$.next(this.events$.value);    
+    });
+  }
+  async EventHeaderDTOSseHandler(msg: SseMessage): Promise<void> {
+    console.log("EventHeaderDTOSseHandler OperationType: " + msg.OperationType);
+    let headers = msg.Entities as EventHeader[];
+    headers.forEach(async header => {
+      console.log("header: " + header.Name);
+      var item = this.events.find(x => x.Header.Id == header.Id);
+      console.log("item:" + item);
+      if(msg.OperationType == SseMessageOperation.Update){
+
+        if(item == undefined)  {
+          let details = await this.proxyApi.getDataAsync<EventDetails>('Events/'+header.Id+'/Details'); 
+          console.log("item == undefined -> this.events.push");
+
+          this.events.push({Header:header, Details: details});
+        }
+        else if(item.Details == null ){
+          console.log("item.Details == undefined -> item.Details = result");
+
+          let result = await this.proxyApi.getDataAsync<EventDetails>('Events/'+header.Id+'/Details');  
+          item.Details = result;
+        }
+      } 
+      else{
+        if(item != undefined){
+          const index = this.events.indexOf(item, 0);
+            this.events.splice(index, 1);
+        }
+      }     
+        //this.events$.next(this.events);    
+    });
+
+  }
 async sseCallback(msg: SseMessage): Promise<void>{
   console.log(msg);
   let eStatusesDTO = msg.Entities as EventStatus[];
@@ -59,7 +108,7 @@ async getEventsHeader(){
   let result = await this.proxyApi.getDataAsync<EventHeader[]>(`Events/Headers`);  
     result.forEach(h=>{
       //let header = await this.getEventHeaderAsync(s.EventId);
-      h.Id = h.Id.replace(/-/gi, '');
+      //h.Id = h.Id.replace(/-/gi, '');
       //header.Status  = s;
     });
     console.log('getEventsHeader.resoponse.result', result);
@@ -119,5 +168,42 @@ async reject(eventId: string, rejectReason: string) {
   console.log("reject -> result", ea);
 }
 
+async AddManualEvent(name: string, note: string, x: number, y: number, z: number) { 
+
+    await this.proxyApi.post('Events/AddManualEvent', {
+      "Name":"mobile",
+      "Note":"mobileNote",
+      "Priority":1,
+      "X":1442.23701298701, "Y":-885.386363636364, "Z":0,
+      "PictureLinkeditem":"ef47c120-ecf2-4515-a809-510bfde86d20"
+  }).toPromise()
+}
+
+AddAttachment(eventId: string, fileToUpload: any) {    
+  const formData: FormData = new FormData();
+  formData.append('file', fileToUpload);
+  console.log('saveFileInfo', fileToUpload);
+  this.proxyApi.postFormData<string>("AddAttachment", formData)
+  .subscribe(
+    res => {
+      var attachedFile = {
+        "AttachedFileId": res,
+        "MediaType": 1,
+        "FileType": "",
+        "FileName": ""
+      };
+      console.log("AddAttachment:"+res);
+      this.AddNoteEvent(eventId, "note", attachedFile);
+    },
+    error => console.error(error),
+  );
+}
+
+AddNoteEvent(eventId:string, note: string, attachedFile:FileAttachment|null) { 
+  this.proxyApi.post('Events/'+eventId+'/AddNote', {
+    "Note":note,
+    "AttachedFile":attachedFile
+  }).toPromise()
+}
 
 }

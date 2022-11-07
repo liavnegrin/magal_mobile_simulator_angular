@@ -49,7 +49,6 @@ export class LoginComponent{
             .subscribe((data)=>{
                 if(data != null){
                     this.res = data;
-                    this.alertService.success(data.Status.toString());
                     console.log(data);               
                     this.router.navigate(['events']);
                 }
@@ -76,7 +75,6 @@ export class LoginComponent{
         this.loginservice.login(this.f['username'].value, this.f['password'].value).subscribe((data)=>{
             if(data != null){
                 this.res = data;
-                this.alertService.success(data.Status.toString());
                 console.log(data);               
                 this.router.navigate(['video']);
             }

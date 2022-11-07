@@ -48,7 +48,7 @@ export class ProxyAPIService {
   getData<T>(relativeUrl: string) : Observable<T>{
     let httpOptions = {
       headers: new HttpHeaders({ 
-        'session': this.login.sessionId$.value ?? "",
+        'Authorization': `session ${this.login.sessionId$.value ?? ""}`
       })
     };
 
@@ -59,7 +59,7 @@ export class ProxyAPIService {
   getDataAsync<T>(relativeUrl: string) : Promise<T>{
     let httpOptions = {
       headers: new HttpHeaders({ 
-        'session': this.login.sessionId$.value ?? "",
+        'Authorization': `session ${this.login.sessionId$.value ?? ""}`
       })
     };
 
@@ -70,22 +70,42 @@ export class ProxyAPIService {
   post<T>(relativeUrl: string, body:any | null = null) : Observable<T>{
     let httpOptions = {
       headers: new HttpHeaders({ 
-        'session': this.login.sessionId$.value ?? "",
+        'Authorization': `session ${this.login.sessionId$.value ?? ""}`,
         'Content-Type': 'application/json'
       })
     };
-    
-    var resoponse = this.http.post<T>(this.configuration.baseApiUrl + relativeUrl, JSON.stringify(body), httpOptions);  
+    var json = JSON.stringify(body);
+    var url = this.configuration.baseApiUrl + relativeUrl;
+    console.log(url,json);
+    var resoponse = this.http.post<T>(url, json, httpOptions);  
+
+    return resoponse;
+  }
+  post2(relativeUrl: string, body:any | null = null) : Observable<object>{
+    let httpOptions = {
+      headers: new HttpHeaders({ 
+        'Authorization': `session ${this.login.sessionId$.value ?? ""}`,
+        'Content-Type': 'application/json'
+      })
+    };
+    var json = JSON.stringify(body);
+    var url = this.configuration.baseApiUrl + relativeUrl;
+    console.log(this.login.sessionId$.value ,url,body);
+    var resoponse = this.http.post(url, body, httpOptions);  
+    //var resoponse = this.http.post<T>(url, json, httpOptions);  
 
     return resoponse;
   }
   postFormData<T>(relativeUrl: string, body:FormData) : Observable<T>{
     let httpOptions = {
       headers: new HttpHeaders({ 
-        'session': this.login.sessionId$.value ?? "",
+        'Authorization': `session ${this.login.sessionId$.value ?? ""}`
       })
     };
-    var resoponse = this.http.post<T>(this.configuration.baseApiUrl + relativeUrl, body, httpOptions);  
+    var url = this.configuration.baseApiUrl + relativeUrl;
+    console.log(url,body, httpOptions);
+
+    var resoponse = this.http.post<T>(this.configuration.baseArchivedApiUrl + relativeUrl, body, httpOptions);  
 
     return resoponse;
   }

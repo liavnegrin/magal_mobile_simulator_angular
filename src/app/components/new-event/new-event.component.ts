@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { EventsService } from 'src/app/services/events.service';
 
 @Component({
   selector: 'app-new-event',
@@ -8,7 +9,8 @@ import { Router } from '@angular/router';
 })
 export class NewEventComponent implements OnInit {
 
-  constructor(private router: Router) { }
+  constructor(private router: Router,
+    private eventService: EventsService) { }
 
   ngOnInit(): void {
   }
@@ -17,6 +19,6 @@ export class NewEventComponent implements OnInit {
     this.router.navigate(['events']);
   }
   send(){
-    
+    this.eventService.AddManualEvent("name","note",109.757855,49.093543,0);
   }
 }

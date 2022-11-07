@@ -3,6 +3,7 @@ import { ServerEventConnect, ServerEventJoin, ServerEventLeave, ServerEventMessa
 import { SseMessage } from '../model/SseMessage';
 import { EventStatus } from '../model/EventHeader';
 import { LoginService } from './login.service';
+import { Dictionary } from '../model/Dictionary';
 
 @Injectable({
   providedIn: 'root'
@@ -13,7 +14,7 @@ export class ProxySseService {
       this.OnInit();
 }
 
-callbacks: {[type:string ]: sseMessageCallback} = {};
+callbacks: Dictionary<sseMessageCallback> = {};
 
 OnInit(): void {
     //this.callbacks.Add([key]= "g", ()=>  console.log("ProxySseService > ServerEventsClient start..."))
@@ -21,7 +22,7 @@ OnInit(): void {
     this.loginServive.SSEChannels$.subscribe(channels=>{
         if(channels != null){
             console.log("ProxySseService > ServerEventsClient start...");
-            const client = new ServerEventsClient("http://localhost:2000/", channels, {
+            const client = new ServerEventsClient("http://localhost:9010/", channels, {
                 handlers: {
                     onConnect: (sub:ServerEventConnect) => {  // Successful SSE connection
                         console.log("You've connected! welcome " + sub.displayName);
@@ -38,10 +39,14 @@ OnInit(): void {
                     onMessage: (msg:ServerEventMessage) => {
                       console.log(msg);
                       
-                      //var sseMessage = msg.body as SseMessage;
-                      //if(this.callbacks[sseMessage.EntityType] != undefined)
-                        //this.callbacks[sseMessage.EntityType](sseMessage);
-                      //console.log(sseMessage);
+                      Object.keys(this.callbacks).forEach(key => {
+                        let value =  this.callbacks[key];
+                        console.log("callbacks key: " + key);
+                      });
+                      
+                      var sseMessage = msg.body as SseMessage;
+                      if(this.callbacks[sseMessage.EntityType] != undefined)
+                        this.callbacks[sseMessage.EntityType](sseMessage);
                      
                     
                     

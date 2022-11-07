@@ -69,8 +69,9 @@ export class LoginService {
         this.userName = username;
         this.password = password;
         this.configuration.saveConfiguration([{key: "userName", value: username},{ key: "password", value: password}]);
+        console.log('LoginResponse:', result);
         console.log('sessionId$.next', result.SessionId);
-        this.alertService.success("login success - Status: " + result.Status);
+        this.alertService.success("login success");
         this.sessionId$.next(result.SessionId);
         this.startLoopPeriodicUpdate();
         this.SSEChannels$.next(result.SSEChannels);
@@ -79,7 +80,7 @@ export class LoginService {
       catchError(error =>{
         this.isLoggined$.next(false);
         this.sessionId$.next(null);
-        this.alertService.error("login error");
+        this.alertService.error("login error", error);
         return of(null);
       })
     );
@@ -90,11 +91,11 @@ export class LoginService {
   while(this.looperPeriodicUpdate){
     let httpOptions = {
       headers: new HttpHeaders({ 
-        'session': this.sessionId$.value ?? "",
+        'Authorization': `session ${this.sessionId$.value ?? ""}`,
       })
     };    
     this.http
-        .post<MobileUserInfo[]>(this.configuration.baseApiUrl + 'Mobile/PeriodicUpdate', {"Latitude":"-59", "Longitude":"12", "State":"1"}, httpOptions,)
+        .post<MobileUserInfo[]>(this.configuration.baseApiUrl + 'Mobile/PeriodicUpdate', {"State":"0", "Latitude": 57.297297, "Longitude": 19.605794}, httpOptions,)
         .subscribe({
           next: (v) =>{ 
             //console.log(v); 

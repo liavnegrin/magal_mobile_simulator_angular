@@ -6,7 +6,10 @@ import { BehaviorSubject } from 'rxjs';
 })
 export class ConfigurationService {
 
-  baseApiUrl:string = "http://localhost:9009/FortisServer/WebApiService/REST/";
+  localip:string="localhost";
+  ip:string="192.168.10.48";
+  baseApiUrl:string = 'http://' + this.localip + ':9009/FortisServer/WebApiService/REST/';
+  baseArchivedApiUrl:string = 'http://' + this.localip + ':9011/FortisServer/ArchiveWebApiService/REST/';
 
   constructor(private httpClient: HttpClient) { }
   async loadConfiguration(): Promise<any> {

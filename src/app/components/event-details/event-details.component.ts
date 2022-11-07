@@ -21,7 +21,8 @@ export class EventDetailsComponent implements OnInit {
   canArrive$:Observable<boolean>;
   canDone$:Observable<boolean>;
   canReject$:Observable<boolean>;
-
+  event :EventItem;
+  
   constructor(
     private activteRoute: ActivatedRoute,
     private route: Router,
@@ -36,6 +37,14 @@ export class EventDetailsComponent implements OnInit {
 
     this.details$ =  id$.pipe(switchMap(id => this.eventsService.getEventDetails(id)));
     this.header$ =  id$.pipe(switchMap(id => this.eventsService.getEventHeader(id)));
+    
+
+    this.eventsService.events$.subscribe(param=>{
+      this.event = param.find(x => x.Header.Id == this.eventId)!;
+      console.log("this.event.Header.Id:"+this.event.Header.Id);
+      console.log("this.event.Details!.EventNotes[0].Note:"+this.event.Details!.EventNotes[0].Note);
+    })
+
     this.canAccept$ = this.details$.pipe(
       map(prm => prm.Commands.find(x=> x.Command == "Accepted")!.CanExecuteCommand.CanExecute));
     this.canArrive$ = this.details$.pipe(
@@ -72,15 +81,6 @@ export class EventDetailsComponent implements OnInit {
     this.saveFileInfo();
   }
   saveFileInfo(){
-    const formData: FormData = new FormData();
-    formData.append('myFile', this.fileToUpload);
-    console.log('saveFileInfo', this.fileToUpload);
-    formData.append('altText', 'altText');
-    formData.append('description', 'description');
-    this.proxyApi.postFormData<any>("CreateFileAttachment", formData)
-    .subscribe(
-      res => console.log(res),
-      error => console.error(error),
-    );
+    this.eventsService.AddAttachment(this.eventId, this.fileToUpload);
   }
 }
